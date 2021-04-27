@@ -9,12 +9,12 @@ Array.prototype.customMap = function () {
 arr = [1,2,3,4,5];
 
 Array.prototype.customMap = function (callback) {
-    if(!Array.isArray(arr)) return console.log('Ошибка');
+    if(!Array.isArray(this)) return console.log('Ошибка');
 
     const newArray = []
     for(let index = 0; index < this.length ; index ++){
-        const valueCallback = callback(this[index],index);
-        newArray.push(valueCallback);
+        const valueFromCallback = callback(this[index],index, this);
+        newArray.push(valueFromCallback);
     }
     return newArray;
 }
@@ -28,11 +28,11 @@ console.log(result);
 // теперь для метода Filter:
 
 Array.prototype.customFilter = function (callback) {
-    if(!Array.isArray(arr)) return console.log('Error');
+    if(!Array.isArray(this)) return console.log('Error');
 
     const newArray = [];
     for(let index = 0; index < this.length; index++){
-        if (callback(this[index],index)) {
+        if (callback(this[index],index, this)) {
             newArray.push(this[index])
         }
     }
