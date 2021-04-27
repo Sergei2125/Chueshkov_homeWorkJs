@@ -19,7 +19,7 @@ Array.prototype.customMap = function (callback) {
     return newArray;
 }
 
-const result = arr.customMap((item,index)=>{
+const result = arr.customMap((item, index, array)=>{
     return item * 3;
 })
 console.log(result);
@@ -39,7 +39,7 @@ Array.prototype.customFilter = function (callback) {
     return newArray;
 }
 
-const resultFilter = arr.customFilter((elem,index)=>{
+const resultFilter = arr.customFilter((elem, index, array)=>{
     return elem>2;
 })
 console.log(resultFilter)
