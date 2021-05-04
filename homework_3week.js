@@ -5,7 +5,7 @@
 Array.prototype.customMap = function () {
   // your implementation here
 }
-*/
+
 arr = [1,2,3,4,5];
 
 Array.prototype.customMap = function (callback) {
@@ -22,7 +22,7 @@ Array.prototype.customMap = function (callback) {
 const result = arr.customMap((item, index, array)=>{
     return item * 3;
 })
-console.log(result);
+//console.log(result);
 
 
 // теперь для метода Filter:
@@ -42,5 +42,5 @@ Array.prototype.customFilter = function (callback) {
 const resultFilter = arr.customFilter((elem, index, array)=>{
     return elem>2;
 })
-console.log(resultFilter)
-
+//console.log(resultFilter)
+*/
