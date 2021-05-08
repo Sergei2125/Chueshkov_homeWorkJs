@@ -13,21 +13,21 @@ https://pokeapi.co/api/v2
 1.	Написать асинхронную функцию, которая делает запрос на https://pokeapi.co/api/v2/pokemon
 и в консоль выводит массив полученых покемонов. */
 
+const urlAdress = "https://pokeapi.co/api/v2/pokemon";
 
-async function getPokemons(urlAdress) {
+async function getPokemons() {
     try{
-        await axios.get(urlAdress)
-        .then(response => {
-            const pokemons = response.data;
-            console.log(pokemons.results);
-        });
+        const pokemonsResponse = await axios
+        .get(urlAdress)
+        .then((response) => response.data.results);
+        console.log(pokemonsResponse);
     }
-    catch(err){
-        console.log('Ошибка!: '+ err);
+    catch(error){
+        console.log('Ошибка!: '+ error);
     }
 }
 
-getPokemons("https://pokeapi.co/api/v2/pokemon")
+//getPokemons()
 
 
 /* 2.	Написать асинхронную функцию, которая в качестве параметра получает имя покемона, 
@@ -36,18 +36,20 @@ getPokemons("https://pokeapi.co/api/v2/pokemon")
     В случае, если покемон найден не будет, в консоль выводить сообщение
  ‘Покемон, по имени <имя запрошенного покемона> не найден.’ */
 
+
+
 async function getPokemonName(name) {
     try{
-        await axios.get("https://pokeapi.co/api/v2/pokemon/" + name)
+        await axios.get(`${urlAdress}/${name}`)
         .then(response => {
             console.log('Покемон ' + name + ' : ', response.data);
         });
     }
-    catch(err){
+    catch(error){
         console.log(`Покемон по имени ${name} не найден`)
     }
 }
-getPokemonName('charmander');
+//getPokemonName('charmander');
 
 
 /* 3.	Написать асинхронную функцию которая делает запрос на адрес который предоставлен в первой задаче.
@@ -58,27 +60,23 @@ getPokemonName('charmander');
  
 HINT: Вам понадобиться метод Promise.all */
 
-async function getPokemonsInfo(urlAdress) {
+const getPokemonsInfo = async() => {
     try{
-        await axios.get(urlAdress)
-        .then(response => {
-            const pokemons = response.data;
-            Promise.all(pokemons.results)
-                .then((responses) => {
-                    const newArray = responses.map((response) => {
-                        return axios(response.url);
-                    });
-                    return Promise.all(newArray);
-                })
-                .then((result) => console.log(result))
-        });
+        const pokeponsData = await axios.get(`${urlAdress}`)
+        .then((response) => response.data.results)
+        console.log(pokeponsData);
+        const pokeponsUrl = pokeponsData.map((pokemon) => 
+        axios.get(pokemon.url))
+        console.log(pokeponsUrl);
+        const pokemonsResult = await Promise.all(pokeponsUrl)
+        .then((responses) => responses.map((response) => response.data));
+        console.log(pokemonsResult);
     }
-    catch(err){
-        console.log(err);
+    catch(error){
+        console.log(error);
     }
-
 }
-getPokemonsInfo("https://pokeapi.co/api/v2/pokemon");
+//getPokemonsInfo();
 
 
 
