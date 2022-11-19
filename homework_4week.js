@@ -13,7 +13,7 @@ https://pokeapi.co/api/v2
 1.	Написать асинхронную функцию, которая делает запрос на https://pokeapi.co/api/v2/pokemon
 и в консоль выводит массив полученых покемонов. */
 
-const urlAdress = "https://pokeapi.co/api/v2/pokemon";
+const urlAdress = 'https://pokeapi.co/api/v2/pokemon';
 
 async function getPokemons() {
   try {
@@ -22,7 +22,7 @@ async function getPokemons() {
       .then((response) => response.data.results);
     console.log(pokemonsResponse);
   } catch (error) {
-    console.log("Ошибка!: " + error);
+    console.log('Ошибка!: ' + error);
   }
 }
 
@@ -37,7 +37,7 @@ async function getPokemons() {
 async function getPokemonName(name) {
   try {
     await axios.get(`${urlAdress}/${name}`).then((response) => {
-      console.log("Покемон " + name + " : ", response.data);
+      console.log('Покемон ' + name + ' : ', response.data);
     });
   } catch (error) {
     console.log(`Покемон по имени ${name} не найден`);
