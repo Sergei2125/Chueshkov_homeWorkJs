@@ -16,19 +16,17 @@ https://pokeapi.co/api/v2
 const urlAdress = "https://pokeapi.co/api/v2/pokemon";
 
 async function getPokemons() {
-    try{
-        const pokemonsResponse = await axios
-        .get(urlAdress)
-        .then((response) => response.data.results);
-        console.log(pokemonsResponse);
-    }
-    catch(error){
-        console.log('Ошибка!: '+ error);
-    }
+  try {
+    const pokemonsResponse = await axios
+      .get(urlAdress)
+      .then((response) => response.data.results);
+    console.log(pokemonsResponse);
+  } catch (error) {
+    console.log("Ошибка!: " + error);
+  }
 }
 
 //getPokemons()
-
 
 /* 2.	Написать асинхронную функцию, которая в качестве параметра получает имя покемона, 
 и делает запрос на получение подробной информации о нём. Как должен выглядеть запрос
@@ -36,21 +34,16 @@ async function getPokemons() {
     В случае, если покемон найден не будет, в консоль выводить сообщение
  ‘Покемон, по имени <имя запрошенного покемона> не найден.’ */
 
-
-
 async function getPokemonName(name) {
-    try{
-        await axios.get(`${urlAdress}/${name}`)
-        .then(response => {
-            console.log('Покемон ' + name + ' : ', response.data);
-        });
-    }
-    catch(error){
-        console.log(`Покемон по имени ${name} не найден`)
-    }
+  try {
+    await axios.get(`${urlAdress}/${name}`).then((response) => {
+      console.log("Покемон " + name + " : ", response.data);
+    });
+  } catch (error) {
+    console.log(`Покемон по имени ${name} не найден`);
+  }
 }
 //getPokemonName('charmander');
-
 
 /* 3.	Написать асинхронную функцию которая делает запрос на адрес который предоставлен в первой задаче.
 Как вы могли заметить, результатом этого запроса является массив объектов с двумя полями,
@@ -60,32 +53,23 @@ async function getPokemonName(name) {
  
 HINT: Вам понадобиться метод Promise.all */
 
-const getPokemonsInfo = async() => {
-    try{
-        const pokeponsData = await axios.get(`${urlAdress}`)
-        .then((response) => response.data.results)
-        console.log(pokeponsData);
-        const pokeponsUrl = pokeponsData.map((pokemon) => 
-        axios.get(pokemon.url))
-        console.log(pokeponsUrl);
-        const pokemonsResult = await Promise.all(pokeponsUrl)
-        .then((responses) => responses.map((response) => response.data));
-        console.log(pokemonsResult);
-    }
-    catch(error){
-        console.log(error);
-    }
-}
+const getPokemonsInfo = async () => {
+  try {
+    const pokeponsData = await axios
+      .get(`${urlAdress}`)
+      .then((response) => response.data.results);
+    console.log(pokeponsData);
+    const pokeponsUrl = pokeponsData.map((pokemon) => axios.get(pokemon.url));
+    console.log(pokeponsUrl);
+    const pokemonsResult = await Promise.all(pokeponsUrl).then((responses) =>
+      responses.map((response) => response.data)
+    );
+    console.log(pokemonsResult);
+  } catch (error) {
+    console.log(error);
+  }
+};
 //getPokemonsInfo();
-
-
-
-
-
-
-
-
-
 
 /* Черновик:
 
